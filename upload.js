@@ -1,10 +1,6 @@
 // Inicializáljuk a Firebase-t.
 var config = {
-	apiKey: "AIzaSyB70-mwJZMagnojGQ6vT6Vc2uT5o_45JO8",
-    authDomain: "myfaboloustestproject.firebaseapp.com",
-    databaseURL: "https://myfaboloustestproject.firebaseio.com",
-    storageBucket: "myfaboloustestproject.appspot.com",
-    messagingSenderId: "507058623801"
+	// API-KEY
 };
 firebase.initializeApp(config);
 
