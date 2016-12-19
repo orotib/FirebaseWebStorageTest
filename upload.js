@@ -1,25 +1,31 @@
-// Initialize Firebase
+// Inicializáljuk a Firebase-t.
 var config = {
-	// YOUR API KEY
+	apiKey: "AIzaSyB70-mwJZMagnojGQ6vT6Vc2uT5o_45JO8",
+    authDomain: "myfaboloustestproject.firebaseapp.com",
+    databaseURL: "https://myfaboloustestproject.firebaseio.com",
+    storageBucket: "myfaboloustestproject.appspot.com",
+    messagingSenderId: "507058623801"
 };
 firebase.initializeApp(config);
 
-// Get elements
 var uploader = document.getElementById('uploader');
-var fileButton = document.getElementById('fileButton');
+var fileButton = document.getElementById('uploadButton');
 
-// Listen for file selection
+// Várjuk a fájl kiválasztását.
 fileButton.addEventListener('change', function(e) {
-	// Get File
+	// Megkapjuk a fájlt.
 	var file = e.target.files[0];
 
-	// Create a storage ref
+	// Storage és Database referenciája.
 	var storageRef = firebase.storage().ref('files/' + file.name);
+	var dbRef = firebase.database().ref().child('files');
 
-	// Upload file
+	// Feltöltjük a fájlt a Storage-ban lévő 'files' mappába.
 	var task = storageRef.put(file);
+	// És hozzáadjuk az adatbázisban lévő 'files' objektumnak gyerekként a fájl nevét. (letöltéshez szükséges)
+	dbRef.push(file.name);
 
-	// Update progress bar
+	// Frissítjük a letöltést jelző sávot.
 	task.on('state_changed',
 		function progress(snapshot) {
 			var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
